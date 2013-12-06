@@ -3,19 +3,33 @@ import subprocess
 import random
 from sys import argv
 
-if len(argv) < 2:
-	episodes_to_play = 1
-else:
-	episodes_to_play = int(argv[1])
 
 futurama_path = 'D:\\video\\Futurama (complete)\\'
+tng_path = 'D:\\trek\\The Next Generation\\'
 vlc_path = "C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe"
+
+
+if len(argv) < 2:
+	episodes_to_play = 1
+	show_path = futurama_path
+elif len(argv) < 3:
+	episodes_to_play = 1
+	if str(argv[1]).lower() == 'tng':
+		show_path = tng_path
+	else:
+		show_path = futurama_path
+else:
+	if str(argv[1]).lower() == 'tng':
+		show_path = tng_path
+	else:
+		show_path = futurama_path
+	episodes_to_play = int(argv[2])
+
+
 episodes = []
 
 def play_episode(video):
 	subprocess.call([vlc_path, video, '--play-and-exit', '--fullscreen'])
-
-show_path = futurama_path
 
 for i in range(episodes_to_play):
 	# randomly select a list of episodes to play
